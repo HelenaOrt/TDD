@@ -1,15 +1,13 @@
-package com.manning.tdd;
+package com.manning.tdd.emailTemplate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Template {
 
-	private Map<String, String> variables;
-	private String templateText;
+	private final Map<String, String> variables;
+	private final String templateText;
 
 	public Template(String templateText) {
 		this.variables = new HashMap<>();
@@ -22,29 +20,29 @@ public class Template {
 
 	public String evaluate() {
 		TemplateParse parse = new TemplateParse();
-		List<String> segments = parse.parse(templateText);
+		List<Segment> segments = parse.parseSegments(templateText);
 		return concatenate(segments);
 	}
 
-	private String concatenate(List<String> segments) {
+	private String concatenate(List<Segment> segments) {
 		StringBuilder result = new StringBuilder();
-		for (String segment : segments) {
-			append(segment, result);
+		for (Segment segment : segments) {
+			result.append(segment.evaluate(variables));
 		}
 		return result.toString();
 	}
 
-	private void append(String segment, StringBuilder result) {
-		if (isVariable(segment)) {
-			evaluateVariable(segment, result);
-		} else {
-			result.append(segment);
-		}
-	}
+//	private void append(String segment, StringBuilder result) {
+//		if (isVariable(segment)) {
+//			evaluateVariable(segment, result);
+//		} else {
+//			result.append(segment);
+//		}
+//	}
 
-	private boolean isVariable(String segment) {
-		return segment.startsWith("${") && segment.endsWith("}");
-	}
+//	private boolean isVariable(String segment) {
+//		return segment.startsWith("${") && segment.endsWith("}");
+//	}
 
 	private void evaluateVariable(String segment, StringBuilder result) {
 		String var = segment.substring(2, segment.length() - 1);

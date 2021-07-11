@@ -1,5 +1,7 @@
-package com.manning.tdd;
+package com.manning.tdd.emailTemplateTest;
 
+import com.manning.tdd.emailTemplate.MissingValueException;
+import com.manning.tdd.emailTemplate.Template;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

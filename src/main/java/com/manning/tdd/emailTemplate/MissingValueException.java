@@ -1,4 +1,4 @@
-package com.manning.tdd;
+package com.manning.tdd.emailTemplate;
 
 public class MissingValueException extends RuntimeException{
 
